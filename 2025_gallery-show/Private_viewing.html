@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Urban Interventions - Private Viewing Request</title>
+    
+    <!-- DNS Prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://formspree.io">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Optimized font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .invitation {
+            width: 100%;
+            max-width: 1200px;
+            aspect-ratio: 16/9;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        
+        .background-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
+        }
+        
+        .content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+            color: white;
+        }
+        
+        .top-section {
+            text-align: left;
+        }
+        
+        .vip-header {
+            position: absolute;
+            top: 25px;
+            right: 80px;
+            text-align: right;
+        }
+        
+        .vip-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            font-weight: 900;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #f4d03f;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 3px 8px rgba(0,0,0,0.8);
+            margin-bottom: 8px;
+        }
+        
+        .vip-datetime {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #f4d03f;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 3px 8px rgba(0,0,0,0.8);
+        }
+        
+        .presenter {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .exhibition-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.8em;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 3px 6px rgba(0,0,0,0.6);
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3em;
+            font-weight: 400;
+            font-style: italic;
+            color: #f4d03f;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.7);
+            margin-bottom: 20px;
+        }
+        
+        .artist-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.15em;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 25px;
+        }
+        
+        /* Contact Form Styles */
+        .contact-form-container {
+            margin-top: 25px;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 700px;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 18px 40px;
+            border-radius: 5px;
+            border: 1px solid rgba(244, 208, 63, 0.3);
+            box-shadow: 3px 3px 8px rgba(0,0,0,1), 
+                       -1px -1px 4px rgba(0,0,0,0.9),
+                       0 0 15px rgba(0,0,0,0.9);
+        }
+        
+        .form-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6em;
+            font-weight: 700;
+            font-style: italic;
+            text-align: center;
+            color: #f4d03f;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+        
+        .form-group {
+            margin-bottom: 12px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85em;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #f4d03f;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+        
+        .optional-label {
+            font-weight: 300;
+            font-size: 0.9em;
+            color: rgba(244, 208, 63, 0.7);
+            text-transform: none;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid rgba(244, 208, 63, 0.5);
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #f4d03f;
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 0 10px rgba(244, 208, 63, 0.3);
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(0, 0, 0, 0.4);
+            font-weight: 300;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 11px 30px;
+            background: rgba(244, 208, 63, 0.9);
+            border: 2px solid #f4d03f;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: none;
+            margin-top: 8px;
+        }
+        
+        .submit-btn:hover {
+            background: #f4d03f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(244, 208, 63, 0.4);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            font-size: 0.8em;
+            margin-top: 6px;
+            display: none;
+            font-weight: 400;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .form-group input.error {
+            border-color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        .success-message {
+            text-align: center;
+            color: #4CAF50;
+            font-weight: 600;
+            font-size: 1.1em;
+            padding: 15px;
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.5);
+            border-radius: 3px;
+            margin-top: 15px;
+            display: none;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .bottom-section {
+            margin-top: auto;
+        }
+        
+        .event-details {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9em;
+            font-weight: 400;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .event-details a {
+            color: #f4d03f;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .event-details a:hover {
+            text-decoration: underline;
+        }
+        
+        .separator {
+            margin: 0 10px;
+        }
+        
+        /* CRITICAL MOBILE FIX */
+        @media only screen and (max-width: 768px) {
+            body {
+                padding: 0;
+                align-items: flex-start;
+            }
+            
+            .invitation {
+                /* REMOVE aspect-ratio constraint on mobile */
+                aspect-ratio: auto;
+                /* Let content determine height */
+                height: auto;
+                min-height: 100vh;
+                /* Use CSS background instead of img for proper extension */
+                background-image: url('eder_invite-101.jpg');
+                background-size: cover;
+                background-position: top center;
+                background-repeat: no-repeat;
+                background-attachment: scroll;
+            }
+            
+            .background-image {
+                /* Hide the img tag on mobile - use CSS background instead */
+                display: none;
+            }
+            
+            .overlay {
+                /* Make overlay position relative and full height */
+                position: relative;
+                height: auto;
+                min-height: 100%;
+            }
+            
+            .content {
+                /* Remove fixed height constraint */
+                height: auto;
+                min-height: 100vh;
+                padding: 80px 25px 30px 25px;
+                /* Change to column layout with start alignment */
+                justify-content: flex-start;
+                gap: 20px;
+            }
+            
+            .vip-header {
+                position: static;
+                text-align: center;
+                margin-bottom: 25px;
+                padding-top: 0;
+            }
+            
+            .vip-title {
+                font-size: 1em;
+                letter-spacing: 2px;
+                margin-bottom: 6px;
+            }
+            
+            .vip-datetime {
+                font-size: 0.6em;
+                letter-spacing: 1px;
+            }
+            
+            .top-section {
+                text-align: center;
+            }
+            
+            .presenter {
+                font-size: 0.55em;
+            }
+            
+            .exhibition-title {
+                font-size: 1.6em;
+            }
+            
+            .subtitle {
+                font-size: 1.3em;
+            }
+            
+            .artist-name {
+                font-size: 0.65em;
+                margin-bottom: 12px;
+            }
+            
+            .contact-form-container {
+                padding: 18px 20px;
+                margin-top: 12px;
+                /* Ensure form is visible */
+                position: relative;
+                z-index: 10;
+            }
+            
+            .form-title {
+                font-size: 1.2em;
+            }
+            
+            .form-group label {
+                font-size: 0.7em;
+            }
+            
+            .form-group input {
+                font-size: 0.85em;
+                padding: 12px 15px;
+                /* Prevent zoom on iOS */
+                font-size: 16px;
+            }
+            
+            .submit-btn {
+                font-size: 0.85em;
+                padding: 13px 20px;
+            }
+            
+            .success-message {
+                font-size: 1em;
+            }
+            
+            .bottom-section {
+                margin-top: 30px;
+                padding-bottom: 20px;
+            }
+            
+            .event-details {
+                font-size: 0.65em;
+            }
+            
+            .separator {
+                display: block;
+                margin: 5px 0;
+            }
+        }
+        
+        /* Extra small mobile devices */
+        @media only screen and (max-width: 480px) {
+            .content {
+                padding: 60px 20px 25px 20px;
+            }
+            
+            .vip-title {
+                font-size: 0.9em;
+            }
+            
+            .vip-datetime {
+                font-size: 0.55em;
+            }
+            
+            .exhibition-title {
+                font-size: 1.4em;
+            }
+            
+            .subtitle {
+                font-size: 1.1em;
+            }
+            
+            .contact-form-container {
+                padding: 15px 18px;
+            }
+            
+            .form-title {
+                font-size: 1.1em;
+            }
+            
+            .event-details {
+                font-size: 0.6em;
+                line-height: 1.6;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation">
+        <!-- Optimized image with modern format support -->
+        <picture>
+            <source srcset="eder_invite-101.jpg" type="image/webp">
+            <img src="eder_invite-101.jpg" 
+                 alt="Urban Interventions Exhibition" 
+                 class="background-image"
+                 width="1200" 
+                 height="675"
+                 fetchpriority="high"
+                 loading="eager">
+        </picture>
+        <div class="overlay"></div>
+        
+        <div class="content">
+            <div class="vip-header">
+                <div class="vip-title">VIP Preview Reception</div>
+                <div class="vip-datetime">October 25, 2025 | 6:00 PM – 10:00 PM</div>
+            </div>
+            
+            <div class="top-section">
+                <div class="presenter">Los Angeles Art Collective presents</div>
+                <h1 class="exhibition-title">Urban Interventions</h1>
+                <div class="artist-name">A Solo Exhibition by Eder Cetina</div>
+                
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <div class="form-title">Please contact us to schedule a private viewing</div>
+                    
+                    <form id="contactForm" action="https://formspree.io/f/mjkanvog" method="POST">
+                        <!-- Hidden field to identify the form -->
+                        <input type="hidden" name="_subject" value="New Private Viewing Request - Urban Interventions">
+                        
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input 
+                                type="text" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Enter your name"
+                                required
+                            >
+                            <div class="error-message" id="nameError">Please enter your name</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                placeholder="Enter your email address"
+                                required
+                            >
+                            <div class="error-message" id="emailError">Please enter a valid email address</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="optional-label">(Optional)</span></label>
+                            <input 
+                                type="tel" 
+                                id="phone" 
+                                name="phone" 
+                                placeholder="Enter your phone number"
+                            >
+                        </div>
+
+                        <button type="submit" class="submit-btn">Submit Request</button>
+                    </form>
+
+                    <div class="success-message" id="successMessage">
+                        Thank you for your interest, we will contact you soon
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bottom-section">
+                <div class="event-details">
+                    <span class="location">3244 Arroyo Seco Ave., Los Angeles, CA 90065</span>
+                    <span class="separator">|</span>
+                    <span class="rsvp"> <a href="mailto:eder@wilsoncetinagroup.com">eder@wilsoncetinagroup.com</a></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const nameError = document.getElementById('nameError');
+        const emailError = document.getElementById('emailError');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset errors
+            nameInput.classList.remove('error');
+            emailInput.classList.remove('error');
+            nameError.classList.remove('show');
+            emailError.classList.remove('show');
+            successMessage.classList.remove('show');
+
+            let isValid = true;
+
+            // Validate name
+            if (nameInput.value.trim() === '') {
+                nameInput.classList.add('error');
+                nameError.classList.add('show');
+                isValid = false;
+            }
+
+            // Validate email
+            const emailValue = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailValue === '' || !emailRegex.test(emailValue)) {
+                emailInput.classList.add('error');
+                emailError.classList.add('show');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Submit to Formspree via AJAX
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        // Show success message
+                        successMessage.classList.add('show');
+                        
+                        // Hide the form after successful submission
+                        setTimeout(() => {
+                            form.style.display = 'none';
+                        }, 500);
+                    } else {
+                        response.json().then(data => {
+                            if (Object.hasOwn(data, 'errors')) {
+                                alert('There was an error submitting the form. Please try again.');
+                            } else {
+                                alert('Oops! There was a problem submitting your form');
+                            }
+                        });
+                    }
+                }).catch(error => {
+                    alert('Oops! There was a problem submitting your form');
+                });
+            }
+        });
+
+        // Clear error on input
+        nameInput.addEventListener('input', function() {
+            if (this.value.trim() !== '') {
+                this.classList.remove('error');
+                nameError.classList.remove('show');
+            }
+        });
+
+        emailInput.addEventListener('input', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(this.value.trim())) {
+                this.classList.remove('error');
+                emailError.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>

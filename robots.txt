@@ -1,0 +1,12 @@
+# Robots.txt for edercetina.com
+# Allow all search engines to index the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://edercetina.com/sitemap.xml
+
+# Block access to system files
+Disallow: /.git/
+Disallow: /node_modules/

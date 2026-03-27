@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Interventions - Eder Cetina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #f5f5f5;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #1a1a1a;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.3), rgba(10,10,10,0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            color: #fff;
+            text-shadow: 2px 2px 20px rgba(0,0,0,0.8);
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.15em;
+            color: #ddd;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+        }
+
+        .hero .artist-name {
+            font-size: 2rem;
+            font-weight: 400;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 0.2em;
+            z-index: 2;
+            animation: bounce 2s infinite;
+            text-shadow: 1px 1px 10px rgba(0,0,0,0.8);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .about {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .presenter {
+            font-size: 0.95rem;
+            color: #888;
+            font-style: italic;
+            margin-top: 2rem;
+        }
+
+        .works-section {
+            padding: 120px 5%;
+            background: #0f0f0f;
+        }
+
+        .works-section h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 80px;
+            letter-spacing: 0.05em;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .work-card {
+            background: #1a1a1a;
+            border: 1px solid #222;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .work-image-container {
+            width: 100%;
+            height: 400px;
+            background: #2a2a2a;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .work-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .work-card:hover .work-image {
+            transform: scale(1.05);
+        }
+
+        .work-info {
+            padding: 30px;
+            background: #1a1a1a;
+            position: relative;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.6s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .work-card:hover::before {
+            left: 100%;
+        }
+
+        .work-card:hover {
+            border-color: #444;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .work-info h3 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .work-number {
+            font-size: 0.85rem;
+            color: #666;
+            letter-spacing: 0.1em;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-image {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .lightbox-info {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        .lightbox-info h3 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .lightbox-info p {
+            font-size: 1rem;
+            color: #999;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            color: #fff;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            line-height: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox-close:hover {
+            opacity: 0.7;
+        }
+
+        .cta-section {
+            padding: 120px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #999;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 18px 45px;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+            border: 2px solid #fff;
+            background: transparent;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #fff;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary {
+            border-color: #666;
+            color: #999;
+        }
+
+        .btn-secondary:hover {
+            background: #666;
+            border-color: #666;
+            color: #fff;
+        }
+
+        footer {
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 1024px) {
+            .works-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero .artist-name {
+                font-size: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .about h2,
+            .works-section h2 {
+                font-size: 2rem;
+            }
+
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .work-image-container {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <!-- HERO IMAGE PLACEHOLDER: Replace src with your hero_image.jpg -->
+        <img src="assets/images/ec_web-201.jpg" alt="Urban Interventions Exhibition" class="hero-bg">
+        <div class="hero-content">
+            <div class="subtitle">SOLO EXHIBITION</div>
+            <h1>URBAN INTERVENTIONS</h1>
+            <div class="artist-name">EDER CETINA</div>
+        </div>
+        <div class="scroll-indicator">EXPLORE ↓</div>
+    </section>
+
+    <section class="about">
+        <div class="about-content">
+            <div>
+                <h2>The Artist</h2>
+                <p>Eder Cetina is a Los Angeles–based artist whose work fuses urban abstraction, graffiti energy, and sacred geometry.</p>
+                <p>Through painting, installation, and architectural interventions, Cetina creates immersive experiences that bridge the grit of city textures with the transcendence of ritual.</p>
+            </div>
+            <div>
+                <h2>The Exhibition</h2>
+                <p>Urban Interventions transforms industrial space into a codex of color, rhythm, and memory.</p>
+                <p>This solo exhibition presents a compelling vision where street culture meets spiritual geometry, creating works that resonate with both contemporary collectors and institutional buyers.</p>
+                <div class="presenter">Presented by Los Angeles Art Collective<br>Celebrating Wilson Cetina Group's Sixth Anniversary</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="works-section">
+        <h2>Selected Works</h2>
+        <div class="works-grid">
+            
+            <!-- WORK 1: Wu Geometry Scroll -->
+            <div class="work-card" onclick="openLightbox('work1', 'Wu Geometry Scroll', 1)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 101.jpg -->
+                    <img src="assets/images/ec_web-101.jpg" alt="Wu Geometry Scroll" class="work-image" id="work1">
+                </div>
+                <div class="work-info">
+                    <h3>Wu Geometry Scroll</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 2: Solar Fragments -->
+            <div class="work-card" onclick="openLightbox('work2', 'Solar Fragments', 2)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 102.jpg -->
+                    <img src="assets/images/ec_web-102.jpg" alt="Solar Fragments" class="work-image" id="work2">
+                </div>
+                <div class="work-info">
+                    <h3>Solar Fragments</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 3: Urban Codex -->
+            <div class="work-card" onclick="openLightbox('work3', 'Urban Codex', 3)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 103.jpg -->
+                    <img src="assets/images/ec_web-103.jpg" alt="Urban Codex" class="work-image" id="work3">
+                </div>
+                <div class="work-info">
+                    <h3>Urban Codex</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 4: Ciphered Portrait -->
+            <div class="work-card" onclick="openLightbox('work4', 'Ciphered Portrait', 4)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 104.jpg -->
+                    <img src="assets/images/ec_web-104.jpg" alt="Ciphered Portrait" class="work-image" id="work4">
+                </div>
+                <div class="work-info">
+                    <h3>Ciphered Portrait</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 5: Architectural Palimpsest -->
+            <div class="work-card" onclick="openLightbox('work5', 'Architectural Palimpsest', 5)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 105.jpg -->
+                    <img src="assets/images/ec_web-105.jpg" alt="Architectural Palimpsest" class="work-image" id="work5">
+                </div>
+                <div class="work-info">
+                    <h3>Architectural Palimpsest</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 6: Ritual Fractures -->
+            <div class="work-card" onclick="openLightbox('work6', 'Ritual Fractures', 6)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 106.jpg -->
+                    <img src="assets/images/ec_web-106.jpg" alt="Ritual Fractures" class="work-image" id="work6">
+                </div>
+                <div class="work-info">
+                    <h3>Ritual Fractures</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 7: Chromatic Interventions -->
+            <div class="work-card" onclick="openLightbox('work7', 'Chromatic Interventions', 7)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 107.jpg -->
+                    <img src="assets/images/ec_web-107.jpg" alt="Chromatic Interventions" class="work-image" id="work7">
+                </div>
+                <div class="work-info">
+                    <h3>Chromatic Interventions</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 8: Sacred Intersection -->
+            <div class="work-card" onclick="openLightbox('work8', 'Sacred Intersection', 8)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 108.jpg -->
+                    <img src="assets/images/ec_web-108.jpg" alt="Sacred Intersection" class="work-image" id="work8">
+                </div>
+                <div class="work-info">
+                    <h3>Sacred Intersection</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+            <!-- WORK 9: Echoes in Yellow -->
+            <div class="work-card" onclick="openLightbox('work9', 'Echoes in Yellow', 9)">
+                <div class="work-image-container">
+                    <!-- IMAGE PLACEHOLDER: Replace src with 109.jpg -->
+                    <img src="assets/images/ec_web-109.jpg" alt="Echoes in Yellow" class="work-image" id="work9">
+                </div>
+                <div class="work-info">
+                    <h3>Echoes in Yellow</h3>
+                    <span class="work-number"></span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightboxImage" class="lightbox-image" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxNumber"></p>
+            </div>
+        </div>
+    </div>
+
+    <section class="cta-section">
+        <h2>Inquire About Available Works</h2>
+        <p>For acquisition inquiries, private viewings, or corporate art consultation, please contact us.</p>
+        <div class="cta-buttons">
+            <button class="btn" onclick="handleInquiry()">Request Catalog</button>
+            <button class="btn btn-secondary" onclick="handleContact()">Schedule Viewing</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Los Angeles Art Collective / Wilson Cetina Group<br>All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openLightbox(workId, title, number) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxNumber = document.getElementById('lightboxNumber');
+            
+            const workImage = document.getElementById(workId);
+            lightboxImage.src = workImage.src;
+            lightboxTitle.textContent = title;
+            lightboxNumber.textContent = `Work ${String(number).padStart(2, '0')}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        function handleInquiry() {
+            alert('Thank you for your interest. Please contact:\nEder Cetina\neder@wilsoncetinagroup.com');
+        }
+
+        function handleContact() {
+            alert('To schedule a private viewing, please contact:\nEder Cetina\n213-422-2953');
+        }
+    </script>
+</body>
+</html>
