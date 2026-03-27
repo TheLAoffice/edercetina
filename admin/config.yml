@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/images"
+public_folder: "/assets/images"
+
+collections:
+
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "about"
+        label: "About the Artist"
+        file: "content/about.json"
+        fields:
+          - { label: "Artist Name", name: "name", widget: "string" }
+          - { label: "Tagline / Hero Text", name: "tagline", widget: "text" }
+          - { label: "Bio", name: "bio", widget: "text" }
+          - { label: "Profile Photo", name: "photo", widget: "image" }
+          - { label: "Instagram URL", name: "instagram", widget: "string" }
+          - { label: "Footer Text", name: "footer", widget: "string" }
+
+  - name: "artwork"
+    label: "Artwork"
+    folder: "content/artwork"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Medium", name: "medium", widget: "string", hint: "e.g. Mixed Media on Canvas" }
+      - { label: "Year", name: "year", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Featured?", name: "featured", widget: "boolean", default: false }
+
+  - name: "exhibitions"
+    label: "Exhibitions"
+    folder: "content/exhibitions"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Exhibition Name", name: "title", widget: "string" }
+      - { label: "Venue", name: "venue", widget: "string" }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Start Date", name: "start_date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "End Date", name: "end_date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Description", name: "description", widget: "text" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options: ["Solo", "Group", "Upcoming"]
+
+  - name: "press"
+    label: "Press"
+    folder: "content/press"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Publication Name", name: "publication", widget: "string" }
+      - { label: "Quote / Headline", name: "quote", widget: "string" }
+      - { label: "Article URL", name: "url", widget: "string" }
+      - { label: "Publication Logo", name: "logo", widget: "image", required: false }
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Category", name: "category", widget: "string", hint: "e.g. Materials, Process, Sculpture" }
+      - { label: "Cover Image", name: "image", widget: "image" }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "collaborations"
+    label: "Collaborations"
+    folder: "content/collaborations"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Image", name: "image", widget: "image" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Link (optional)", name: "url", widget: "string", required: false }
