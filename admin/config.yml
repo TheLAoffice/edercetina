@@ -26,6 +26,8 @@ collections:
     folder: "content/artwork"
     create: true
     slug: "{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Medium", name: "medium", widget: "string", hint: "e.g. Mixed Media on Canvas" }
@@ -38,12 +40,14 @@ collections:
     folder: "content/exhibitions"
     create: true
     slug: "{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Exhibition Name", name: "title", widget: "string" }
       - { label: "Venue", name: "venue", widget: "string" }
       - { label: "Location", name: "location", widget: "string" }
-      - { label: "Start Date", name: "start_date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
-      - { label: "End Date", name: "end_date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Start Date", name: "start_date", widget: "string" }
+      - { label: "End Date", name: "end_date", widget: "string" }
       - { label: "Description", name: "description", widget: "text" }
       - label: "Type"
         name: "type"
@@ -55,6 +59,8 @@ collections:
     folder: "content/press"
     create: true
     slug: "{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Publication Name", name: "publication", widget: "string" }
       - { label: "Quote / Headline", name: "quote", widget: "string" }
@@ -66,9 +72,11 @@ collections:
     folder: "content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", format: "MMMM D, YYYY", date_format: "MMMM D, YYYY", time_format: false }
+      - { label: "Date", name: "date", widget: "string" }
       - { label: "Category", name: "category", widget: "string", hint: "e.g. Materials, Process, Sculpture" }
       - { label: "Cover Image", name: "image", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
@@ -78,6 +86,8 @@ collections:
     folder: "content/collaborations"
     create: true
     slug: "{{slug}}"
+    extension: "json"
+    format: "json"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Image", name: "image", widget: "image" }
