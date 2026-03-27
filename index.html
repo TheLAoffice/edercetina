@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-G85VQWHM0N"></script>
     <script>
@@ -1910,5 +1911,16 @@ const subscriptionSuccess = document.getElementById('subscriptionSuccess');
             });
         });
     </script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </body>
 </html>
